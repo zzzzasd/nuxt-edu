@@ -2,8 +2,8 @@
   <div class="container">
     <h1>List of Students</h1>
       <ul>
-        <li v-for="(student,index) in classroom.students" :key="index">
-          {{ student.name }}
+        <li v-for="(student,index) in student.names" :key="index">
+          {{ names }}
         </li> 
       </ul>
       <input v-model="name"/>
@@ -19,15 +19,13 @@ export default {
   async asyncData({ params }) {
     // We can return a Promise instead of calling the callback
     const { data } = await axios.get (
-      `http://localhost:8000/classrooms/${params.id}`
+      `http://localhost:8000/students/${params.id}`
     );
-    return {classroom: data}
+    return {student: data}
   },
   data() {
     return {
-      student: '',
       name:'',
-      classrooms: '',
       class_name: ''
     };
   },
@@ -35,7 +33,7 @@ export default {
     onSubmit() {
       const newStudents = [...this.student, {name: this.name}];
       axios
-        .patch(`http://localhost:8000/classrooms/${this.$route.params.id}/`, {
+        .patch(`http://localhost:8000/students/${this.$route.params.id}/`, {
           students: newStudents
         })
         .then(response => {

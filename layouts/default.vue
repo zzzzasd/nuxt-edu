@@ -89,7 +89,8 @@
           { icon: 'person-add', title: 'Welcome', to: '/' },
           { icon: 'person', title: 'Students', to: '/students' },
           { icon: 'bubble_chart', title: 'Attendance', to: '/attendance' },
-          { icon: 'book', title: 'Subjects', to: '/subjects' }
+          { icon: 'book', title: 'Subjects', to: '/subjects' },
+          { icon: 'home', title: 'Classrooms', to: '/classrooms' }          
 
 
         ],

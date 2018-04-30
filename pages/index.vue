@@ -2,12 +2,13 @@
 
 <template>
   <div class="container">
-    <h1>User Agent</h1>
+    <h1>Home Page</h1>
     <p>{{ userAgent }}</p>
     <p><nuxt-link to="/subjects">Subject Page</nuxt-link></p>
     <p><nuxt-link to="/attendance">Attendance Page</nuxt-link></p>
     <p><nuxt-link to="/students">Student Page</nuxt-link></p>
-    
+    <p><nuxt-link to="/classrooms">Classroom Page</nuxt-link></p>
+
   </div>
 </template>
 

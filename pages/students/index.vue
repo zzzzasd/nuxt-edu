@@ -6,8 +6,8 @@
       
       <v-form v-model="valid" ref="form" lazy-validation>
         <v-text-field
-          label="Name"
-          v-model="name"
+          label="Identity Number"
+          v-model="identity_number"
           required
         ></v-text-field>
         <v-text-field
@@ -15,30 +15,37 @@
           v-model="phone_number"
           required
         ></v-text-field>
-        </v-form>
-        <v-text-field
-          label="Semester Average"
-          v-model="semester_average"
-          required
-        ></v-text-field>
       <v-btn color="success" @click="onSubmit">Add Student</v-btn>
+    </v-form>
+
+
+    <v-data-table
+      :headers="headers"
+      :users="users"
+      hide-actions
+      class="elevation-1"
+    >
+      <template slot="users" slot-scope="props">
+        <td>{{ props.student }}</td>
+        <td class="text-xs-right">{{ props.user.identity_name }}</td>
+        <td class="text-xs-right">{{ props.user.phone_number }}</td>
+      </template>
+    </v-data-table>
+
 
     <table id="firstTable">
   <thead>
     <tr>
       <th>No.</th>
       <th>Name</th>
-      <th>Phone</th>
-      <th>Grade Average</th>
     </tr>
   </thead>
   <tbody>
-    <tr v-for="(student,index) in students" :key="index">
-      <td>{{student.id}}</td>
-      <td>{{student.name}}</td>
-      <td>{{student.phone_number}}</td>
-      <td>{{student.semester_average}}</td>
-      <button @click="deleteRow(index,student.id)">Delete</button>
+    <tr v-for="(user,index) in users" :key="index">
+      <td>{{user.id}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.phone_number}}</td>
+      <button @click="deleteRow(index,user.id)">Delete</button>
 
     </tr>
   </tbody>
@@ -55,23 +62,22 @@ import axios from "axios";
 export default {
   asyncData({ req, params }) {
     // We can return a Promise instead of calling the callback
-    return axios.get("http://localhost:8000/students/").then(res => {
-      return { students: res.data };
+    return axios.get("http://localhost:8000/users/").then(res => {
+      return { users: res.data };
     });
   },
   data() {
     return {
-      students: "",
-      name: "",
-      phone_number: "",
-      semester_average: ""
+      users: "",
+      identity_number: "",
+      email: "",
     };
   },
   methods: {
     deleteRow(index, studentID) {
       axios
-        .delete(`http://localhoost:8000/students/${studentID}`)
-        .then(response => this.students.splice(index, 1))
+        .delete(`http://localhoost:8000/users/${studentID}`)
+        .then(response => this.users.splice(index, 1))
         .catch(function(error) {
           console.log(error.response);
         });
@@ -79,10 +85,9 @@ export default {
     onSubmit() {
       let vue = this;
       axios
-        .post("http://localhost:8000/students/", {
-          name: this.name,
-          phone_number: this.phone_number,
-          semester_average: this.semester_average
+        .post("http://localhost:8000/users/", {
+          name: this.identity_number,
+          email: this.email,
         })
         .then(function(response) {
           vue.subjects.push(response.data);

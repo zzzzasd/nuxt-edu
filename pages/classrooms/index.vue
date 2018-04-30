@@ -1,14 +1,20 @@
 
 <template>
   <div class="container">
-    <h1>Select Attendance</h1>
+    <h1>Select Classroom</h1>
       <ul>
-        <li v-for="(attendance, index) in attendances" :key="index">
-          <nuxt-link :to="{ name: 'attendance-id', params: { id: attendance.id } }">{{ attendance.id }}</nuxt-link>
+        <li v-for="(classrooms, index) in classrooms.classrooms" :key="index">
+          <nuxt-link :to="{ name: 'classrooms-id', params: { id: classrooms.id } }">{{ classrooms.name }}</nuxt-link>
         </li>
       </ul>
-      <p>Total Attendances: {{ attendancesCount }}</p>
+      <!-- <v-list>
+        <v-list-tile v-for="classroom in classrooms" :key="classroom.id">
+          <v-list-tile-content>{{classroom}}</v-list-tile-content>
+
+        </v-list-tile>
+      </v-list> -->
       <p><nuxt-link to="/">Back to home page</nuxt-link></p>
+    
 </div>
 </template>
 
@@ -18,22 +24,18 @@ import axios from "axios";
 export default {
   asyncData({ req, params }) {
     // We can return a Promise instead of calling the callback
-    return axios.get("http://localhost:8000/api/attendances").then(res => {
+    return axios.get("http://localhost:8000/api/classrooms").then(res => {
       console.log(res.data)
-      return {
-        attendances: res.data.attendances,
-        attendancesCount: res.data.attendancesCount
-      };
+      return { classrooms: res.data};
     });
   },
   data () {
     return {
-      // attendances: [],
-      // attendanceList:[]
+      classrooms:null
     }
   },
   head: {
-    title: "List of attendances"
+    title: "List of classrooms"
   },
 }
 </script>
