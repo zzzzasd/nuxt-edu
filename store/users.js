@@ -36,13 +36,13 @@ export const actions = {
   'REGISTER' (context, credentials) {
     return new Promise((resolve, reject) => {
       this.$axios
-        .post('users', {user: credentials})
-        .then(({data}) => {
-          context.commit(SET_AUTH, data.user)
-          resolve(data)
+        .$post('users', { user: credentials })
+        .then((res) => {
+          context.commit('SET_AUTH', res.user)
+          resolve(res)
         })
-        .catch(({response}) => {
-          context.commit(SET_ERROR, response.data.errors)
+        .catch(({err}) => {
+          context.commit('SET_ERROR', err)
         })
     })
   },
@@ -62,7 +62,7 @@ export const actions = {
     }
   },
   'UPDATE_USER' (context, payload) {
-    const {email, username, password, image, bio} = payload
+    const {username, password, image, bio} = payload
     const user = {
       email,
       username,

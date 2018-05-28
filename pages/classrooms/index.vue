@@ -8,7 +8,6 @@
         </li>
       </ul>
       <input v-model="name"/>
-      <v-btn flat color="green" @click="onSubmit">Add Class</v-btn>
       <p><nuxt-link to="/">Back to home page</nuxt-link></p>
   </div>
 </template>

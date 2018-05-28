@@ -11,7 +11,7 @@
           ></v-text-field>
           <v-text-field
             label="E-mail"
-            v-model="email"
+            v-model="username"
           ></v-text-field>
           <v-text-field
             label="Password"
@@ -28,7 +28,7 @@
           <tr>
             <th>No.</th>
             <th>Name</th>
-            <th>Email</th>
+            <th>Username</th>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +65,7 @@ export default {
       axios
         .post("http://localhost:8000/api/users/", {
           username: this.users.username,
-          email: this.users.email,
+          username: this.users.username,
           password: this.users.password
         })
         .then(function(response) {
