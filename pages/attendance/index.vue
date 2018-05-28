@@ -2,11 +2,7 @@
 <template>
   <div class="container">
     <h1>Select Attendance</h1>
-      <ul>
-        <li v-for="(attendance, index) in attendances" :key="index">
-          <nuxt-link :to="{ name: 'attendance-id', params: { id: attendance.id } }">{{ attendance.id }}</nuxt-link>
-        </li>
-      </ul>
+    <h2> {{ attendances }} </h2>
       <p>Total Attendances: {{ attendancesCount }}</p>
       <p><nuxt-link to="/">Back to home page</nuxt-link></p>
 </div>

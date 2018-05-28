@@ -4,12 +4,6 @@ module.exports = {
     failedColor: '#bf5050',
     duration: 1500
   },
-  mode: 'spa',
-  generate: {
-    routes: [
-      '/subjects/1'
-    ]
-  },
   head: {
     title: 'nuxt-edu',
     meta: [
@@ -41,6 +35,45 @@ module.exports = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
+      }
+    }
+  },
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
+    '@nuxtjs/proxy',
+
+  ],
+
+  axios: {
+    baseURL: 'http://localhost:3000/api',
+    proxy: true,
+    credentials: true,
+    debug: true,
+    prefix: '/api'
+  },
+
+  proxy: {
+    '/api': { target: 'http://localhost:8000/' }
+  },
+  auth: {
+    fetchUserOnLogin : false,
+    redirect: {
+      login: '/attendances',
+      // logout: '/',
+      // callback: '/login',
+      // user: '/'
+    },
+
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/users/login/', method: 'post', propertyName: 'data' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/user/me', method: 'get', propertyName: 'user' }
+        },
+        // tokenRequired: true,
+        // tokenType: 'bearer',
       }
     }
   },

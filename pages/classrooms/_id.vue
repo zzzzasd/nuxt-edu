@@ -2,11 +2,14 @@
   <div class="container">
     <h1>Class {{classroom.name}}</h1>
       <ul>
-        <li v-for="(student, index) in classroom.studentList" :key="index">
-          {{ student }}
+        <li v-for="(student, index) in classroom.students" :key="index">
+          {{ student.username }}
         </li>
       </ul>
-      <p><nuxt-link to="/classrooms">Back to Classroom Page</nuxt-link></p>  
+      <v-input v-model="student"/>
+      <button @click="onSubmit">Submit</button>
+      <p><nuxt-link to="/classrooms">Back to Classroom Page</nuxt-link></p>
+  
   </div>
 </template>
 
@@ -29,6 +32,16 @@ export default {
   head: {
     title: "List of classrooms"
   },
+  methods: {
+    // deleteButton(index, id) {
+    //   axios.delete(`http://localhost:8000/classrooms/${id}`)
+    //   .then(response => this.classrooms.splice(index,1))
+    //   .catch(function (error) {
+    //     console.log(error.response);
+    //   });
+    // },
+
+  }
 }
 </script>
 

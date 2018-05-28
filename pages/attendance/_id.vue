@@ -1,12 +1,11 @@
 <template>
   <div class="container">
-    <h1>List of Students</h1>
+    <h1>Attendance</h1>
       <ul>
-        <li v-for="(student,index) in student.names" :key="index">
-          {{ names }}
+        <li v-for="(attendee, index) in attendance.attendeeList" :key="index">
+          {{ attendee }}
         </li> 
       </ul>
-      <input v-model="name"/>
       <p><nuxt-link to="/attendance">Back to the Classroom list</nuxt-link></p>
   </div>
 </template>
@@ -17,32 +16,15 @@ import axios from "axios";
 
 export default {
   async asyncData({ params }) {
-    // We can return a Promise instead of calling the callback
-    const { data } = await axios.get (
-      `http://localhost:8000/students/${params.id}`
-    );
-    return {student: data}
+    // We can use async/await ES6 feature
+    return axios.get(`http://localhost:8000/api/attendances/${params.id}`).then(res => {
+      console.log(res.data)
+      return { attendance: res.data.attendance };
+    });
   },
   data() {
     return {
-      name:'',
-      class_name: ''
     };
-  },
-  methods: {
-    onSubmit() {
-      const newStudents = [...this.student, {name: this.name}];
-      axios
-        .patch(`http://localhost:8000/students/${this.$route.params.id}/`, {
-          students: newStudents
-        })
-        .then(response => {
-          this.classroom = response.data
-        })
-        .catch(function(error) {
-          console.log(error.response);
-        });
-    }
   }
 }
 </script>

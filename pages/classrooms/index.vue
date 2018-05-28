@@ -7,15 +7,10 @@
           <nuxt-link :to="{ name: 'classrooms-id', params: { id: classrooms.id } }">{{ classrooms.name }}</nuxt-link>
         </li>
       </ul>
-      <!-- <v-list>
-        <v-list-tile v-for="classroom in classrooms" :key="classroom.id">
-          <v-list-tile-content>{{classroom}}</v-list-tile-content>
-
-        </v-list-tile>
-      </v-list> -->
+      <input v-model="name"/>
+      <v-btn flat color="green" @click="onSubmit">Add Class</v-btn>
       <p><nuxt-link to="/">Back to home page</nuxt-link></p>
-    
-</div>
+  </div>
 </template>
 
 <script>
@@ -37,6 +32,21 @@ export default {
   head: {
     title: "List of classrooms"
   },
+  methods: {
+    onSubmit() {
+      const classroomList = [...this.classrooms, { name: this.name }];
+      axios
+        .patch(`http://localhost:8000/api/classrooms/`, {
+          classrooms: classroomList
+        })
+        .then(response => {
+          this.classrooms = response.data
+        })
+        .catch(function(error) {
+          console.log(error.response);
+        });
+    }
+  }
 }
 </script>
 
