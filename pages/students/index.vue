@@ -63,7 +63,7 @@ export default {
     onSubmit() {
       let vue = this;
       axios
-        .post("http://localhost:8000/api/users/all", {
+        .post("http://localhost:8000/api/users/", {
           username: this.users.username,
           email: this.users.email,
           password: this.users.password

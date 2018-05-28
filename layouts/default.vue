@@ -30,27 +30,11 @@
         @click.stop="miniVariant = !miniVariant"
       >
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>remove</v-icon>
-      </v-btn>
+      </v-btn> 
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>menu</v-icon>
-      </v-btn>
+
+      <v-btn outline color="green" @click="logout">Log Out</v-btn>
     </v-toolbar>
     <v-content>
       <v-container>
@@ -86,20 +70,33 @@
         drawer: true,
         fixed: false,
         items: [
-          { icon: 'person-add', title: 'Welcome', to: '/' },
-          { icon: 'person', title: 'Students', to: '/students' },
-          { icon: 'bubble_chart', title: 'Attendance', to: '/attendance' },
-          { icon: 'book', title: 'Subjects', to: '/subjects' },
-          { icon: 'home', title: 'Classrooms', to: '/classrooms' }          
+          { icon: 'favorite', title: 'Welcome', to: '/' },
+          { icon: 'account_circle', title: 'Login', to: '/login' },          
+          { icon: 'people', title: 'Students', to: '/students' },
+          { icon: 'alarm_on', title: 'Attendance', to: '/attendance' },
+          { icon: 'chrome_reader_mode', title: 'Subjects', to: '/subjects' },
+          { icon: 'account_balance', title: 'Classrooms', to: '/classrooms' }          
 
 
         ],
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Vuetify.js'
+        title: 'Edu Plus'
       }
-    }
+    },
+    methods: {
+      async logout() {
+        console.log('logout')
+        return this.$store.dispatch('users/LOGOUT')
+          .then(res => {
+            this.$router.replace('/')
+          })
+          .catch(err => {
+            this.error = err + ''
+          })
+      }
+    },
   }
 </script>
 
