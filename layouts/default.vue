@@ -59,7 +59,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
+      <span>:-) Shern's Nuxt Project</span>
     </v-footer>
   </v-app>
 </template>
@@ -76,9 +76,10 @@ export default {
       items: [
         { icon: 'favorite', title: 'Welcome', to: '/' },
         { icon: 'account_circle', title: 'Login', to: '/login' },
-        { icon: 'pool', title: 'Register', to: '/register' },                            
-        { icon: 'people', title: 'Students', to: '/students' },
-        { icon: 'alarm_on', title: 'Attendance', to: '/attendance' },
+        { icon: 'add_to_photos', title: 'Register', to: '/register' },                            
+        { icon: 'alarm_on', title: 'Attendance', to: '/Aclassrooms' },
+        //{ icon: 'people', title: 'Students', to: '/students' },
+        //{ icon: 'alarm_on', title: 'Attendance', to: '/attendance' },
         { icon: 'chrome_reader_mode', title: 'Subjects', to: '/subjects' },
         { icon: 'account_balance', title: 'Classrooms', to: '/classrooms' }          
       ],

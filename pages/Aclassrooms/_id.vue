@@ -6,7 +6,6 @@
           <label>{{ student.username }} </label>
         </div>
       <p> {{ selected }} </p>
-      <v-btn color="success" @click="markAttendance">Mark Absent</v-btn>
       <p><nuxt-link to="/classrooms">Back to Classroom Page</nuxt-link></p>
 
   </div>
@@ -33,23 +32,6 @@ export default {
     title: "List of classrooms"
   },
   methods: {
-    markAttendance() {
-      let vue = this;
-      axios
-        .post("http://localhost:8000/api/attendances", {
-          attendees: this.selected,
-          classroom: this.classroom.id,
-          status: "0",
-        })
-        .then(function(response) {
-          vue.users.push(response.data.users);
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error.response);
-        });
-      console.log(this)
-    }
     // deleteButton(index, id) {
     //   axios.delete(`http://localhost:8000/classrooms/${id}`)
     //   .then(response => this.classrooms.splice(index,1))

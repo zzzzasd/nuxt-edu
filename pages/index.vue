@@ -1,5 +1,5 @@
 <template>
-  <h1>LOL</h1>
+  <h1>Welcome {{ username }} to Edu Plus</h1>
 </template>
 
 <script>

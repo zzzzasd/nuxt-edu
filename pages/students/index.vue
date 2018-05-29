@@ -65,7 +65,6 @@ export default {
       axios
         .post("http://localhost:8000/api/users/", {
           username: this.users.username,
-          username: this.users.username,
           password: this.users.password
         })
         .then(function(response) {
