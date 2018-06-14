@@ -1,11 +1,48 @@
 
 <template>
-  <div class="container">
-    <h1>Select Attendance</h1>
-    <h2> {{ attendances }} </h2>
-      <p>Total Attendances: {{ attendancesCount }}</p>
-      <p><nuxt-link to="/">Back to home page</nuxt-link></p>
-</div>
+<v-layout column justify-center align-center>
+    <v-flex xs12 sm8 md6>
+      <h1>Student Database </h1>
+        <table id="firstTable">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Username</th>
+              <th>Name</th>
+              <th>Present</th>
+              <th>Absent</th>
+              <th>Total</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(profile,index) in profiles.profiles" :key="index">
+              <td>{{profile.id}}</td>
+              <td>{{profile.username}}</td>
+              <td>{{profile.full_name}}</td>
+              <td>{{profile.phone_number}}</td>
+              <td>{{profile.present_total}}</td>
+              <td>{{profile.absent_total}}</td>
+              <td>{{ profile.present_total}}/{{ profile.present_total + profile.absent_total }} </td>                      
+            </tr>
+          </tbody>
+        </table>
+        
+  <!-- <v-data-table>
+    <template slot="profile">
+      <td class="text-xs-right">{{ profile.id }}</td>
+      <td class="text-xs-right">{{ profile.username }}</td>
+      <td class="text-xs-right">{{ profile.full_name }}</td>
+      <td class="text-xs-right">{{ profile.phone_number }}</td>
+      <td class="text-xs-right">{{ profile.present_total }}</td>
+      <td class="text-xs-right">{{ profile.absent_total }}</td>            
+    </template>
+  </v-data-table> -->
+
+<h1><nuxt-link to="/">Back to home page</nuxt-link></h1>
+
+</v-flex>
+</v-layout>
 </template>
 
 <script>
@@ -14,49 +51,26 @@ import axios from "axios";
 export default {
   asyncData({ req, params }) {
     // We can return a Promise instead of calling the callback
-    return axios.get("http://localhost:8000/api/attendances").then(res => {
-      console.log(res.data)
-      return {
-        attendances: res.data.attendances,
-        attendancesCount: res.data.attendancesCount
-      };
+    return axios.get("http://localhost:8000/api/profiles/all/").then(res => {
+      return { profiles: res.data };
     });
   },
-  data () {
+  data() {
     return {
-      // attendances: [],
-      // attendanceList:[]
+      profiles: "",
+      name: "",
+      phone_number: "",
+      present_total: "",
+      absent_total: "",
+    };
+  },
+  computed: {
+    total() {
+      return present_total + absent_total
     }
-  },
-  head: {
-    title: "List of attendances"
-  },
+  }
 }
 </script>
 
 <style scoped>
-.container {
-  width: 70%;
-  margin: auto;
-  text-align: center;
-  padding-top: 100px;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-ul li {
-  border: 1px #ddd solid;
-  padding: 20px;
-  text-align: left;
-}
-ul li a {
-  color: gray;
-}
-p {
-  font-size: 20px;
-}
-a {
-  color: #41b883;
-}
 </style>

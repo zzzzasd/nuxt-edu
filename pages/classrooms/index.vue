@@ -32,19 +32,6 @@ export default {
     title: "List of classrooms"
   },
   methods: {
-    onSubmit() {
-      const classroomList = [...this.classrooms, { name: this.name }];
-      axios
-        .patch(`http://localhost:8000/api/classrooms/`, {
-          classrooms: classroomList
-        })
-        .then(response => {
-          this.classrooms = response.data
-        })
-        .catch(function(error) {
-          console.log(error.response);
-        });
-    }
   }
 }
 </script>

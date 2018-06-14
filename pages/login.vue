@@ -8,6 +8,7 @@
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-card-text>
+        <v-alert v-if="alert" :type="alert.type" value="true">This is alert</v-alert>
         <v-form>
           <v-text-field
             v-model="loginForm.username"
@@ -54,12 +55,14 @@ export default {
       loginForm: {
         username: "",
         password: "",
+        alert:null
       },
       error: null
     }
   },
   methods: {
     async login() {
+      this.alert = null
       this.error = null
       const data = {
         username: this.loginForm.username,
@@ -67,10 +70,11 @@ export default {
       }
       return this.$store.dispatch('users/LOGIN', data)
         .then(res => {
+          console.log("hello")
           this.$router.replace('/')
         })
         .catch(err => {
-          this.error = err + ''
+          console.error('adsaas', err)
         })
     }
   },

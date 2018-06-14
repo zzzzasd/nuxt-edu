@@ -34,8 +34,8 @@
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-btn v-if="isAuthenticated=false" outline color="blue" nuxt to="/login"> Log In </v-btn>
-      <v-btn v-else-if="isAuthenticated=true" outline color="green" @click="logout">Log Out</v-btn>
+      <v-btn v-if="!$store.state.users.isAuthenticated" outline color="blue" nuxt to="/login"> Log In </v-btn>
+      <v-btn v-else outline color="green" @click="logout">Log Out</v-btn>
 
     </v-toolbar>
     <v-content>
@@ -69,20 +69,21 @@ import mapGetters from 'vuex'
 
 export default {
   data () {
+    
     return {
       clipped: false,
       drawer: true,
       fixed: false,
       items: [
-        { icon: 'favorite', title: 'Welcome', to: '/' },
+        { icon: 'star', title: 'Welcome', to: '/' },
         { icon: 'account_circle', title: 'Login', to: '/login' },
-        { icon: 'add_to_photos', title: 'Register', to: '/register' },                            
-        { icon: 'alarm_on', title: 'Attendance', to: '/Aclassrooms' },
+        { icon: 'school', title: 'Attendance', to: '/attendance' },
+        { icon: 'account_balance', title: 'Classrooms', to: '/classrooms' },
+        { icon: 'face', title: 'Profile', to: '/profile' }          
+        //{ icon: 'add_to_photos', title: 'Register', to: '/register' },                            
         //{ icon: 'people', title: 'Students', to: '/students' },
-        //{ icon: 'alarm_on', title: 'Attendance', to: '/attendance' },
-        { icon: 'chrome_reader_mode', title: 'Subjects', to: '/subjects' },
-        { icon: 'account_balance', title: 'Classrooms', to: '/classrooms' }          
-      ],
+        //{ icon: 'chrome_reader_mode', title: 'Subjects', to: '/subjects' },
+      ],          
       miniVariant: false,
       right: true,
       rightDrawer: false,

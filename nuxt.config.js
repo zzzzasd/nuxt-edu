@@ -53,6 +53,7 @@ module.exports = {
     '/api': { target: 'http://localhost:8000/' }
   },
   plugins: [
-    { src: '~/plugins/vuetify' }
+    { src: '~/plugins/vuetify' },
+    { src: '~/plugins/auth' }
   ]
 }

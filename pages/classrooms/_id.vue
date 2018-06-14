@@ -3,10 +3,11 @@
     <h1>Class {{classroom.name}}</h1>
         <div v-for="(student, index) in classroom.students" :key="index">
           <input type="checkbox" v-model="selected" :value="student.id"  />
-          <label>{{ student.username }} </label>
+          <label>{{ student.full_name }} </label>
         </div>
       <p> {{ selected }} </p>
-      <v-btn color="success" @click="markAttendance">Mark Absent</v-btn>
+      <v-btn color="success" @click="markPresent">Present</v-btn>      
+      <v-btn color="error" @click="markAbsent">Absent</v-btn>
       <p><nuxt-link to="/classrooms">Back to Classroom Page</nuxt-link></p>
 
   </div>
@@ -33,7 +34,23 @@ export default {
     title: "List of classrooms"
   },
   methods: {
-    markAttendance() {
+    markPresent() {
+      let vue = this;
+      axios
+        .post("http://localhost:8000/api/attendances", {
+          attendees: this.selected,
+          classroom: this.classroom.id,
+          status: "1",
+        })
+        .then(function(response) {
+          vue.users.push(response.data.users);
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error.response);
+        });
+    },
+    markAbsent() {
       let vue = this;
       axios
         .post("http://localhost:8000/api/attendances", {
@@ -43,13 +60,24 @@ export default {
         })
         .then(function(response) {
           vue.users.push(response.data.users);
-          console.log(response);
         })
+        .then(axios({
+            method : 'post',
+            url : 'https://rest.nexmo.com/sms/json',
+            params:{
+              api_key:'ae978186',
+              api_secret:'G9zzAXCV5YLh2ylV',
+              to:60122238785,
+              from:'NEXMO',
+              text:"Your child is absent"
+            },
+            headers:{
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }))
         .catch(function(error) {
           console.log(error.response);
-        });
-      console.log(this)
-    }
+        })
     // deleteButton(index, id) {
     //   axios.delete(`http://localhost:8000/classrooms/${id}`)
     //   .then(response => this.classrooms.splice(index,1))
@@ -57,7 +85,7 @@ export default {
     //     console.log(error.response);
     //   });
     // },
-
+  }
   }
 }
 </script>

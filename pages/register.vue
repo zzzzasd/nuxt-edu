@@ -64,7 +64,7 @@ export default {
           this.$router.replace('/')
         })
         .catch(err => {
-          this.error = err + ''
+          error({ statusCode: 400, message: 'asdasd' })
         })
     }
   },
