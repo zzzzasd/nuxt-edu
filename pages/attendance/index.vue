@@ -16,26 +16,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(profile,index) in profiles.profiles" :key="index">
-              <td>{{profile.id}}</td>
-              <td>{{profile.username}}</td>
-              <td>{{profile.full_name}}</td>
-              <td>{{profile.phone_number}}</td>
-              <td>{{profile.present_total}}</td>
-              <td>{{profile.absent_total}}</td>
-              <td>{{ profile.present_total}}/{{ profile.present_total + profile.absent_total }} </td>                      
+            <tr v-for="(user,index) in users.users" :key="index">
+              <td>{{user.id}}</td>
+              <td>{{user.username}}</td>
+              <td>{{user.full_name}}</td>
+              <td>{{user.phone_number}}</td>
+              <td>{{user.present_total}}</td>
+              <td>{{user.absent_total}}</td>
+              <td>{{ user.present_total}}/{{ user.present_total + user.absent_total }} </td>                       -->
             </tr>
           </tbody>
         </table>
         
   <!-- <v-data-table>
-    <template slot="profile">
-      <td class="text-xs-right">{{ profile.id }}</td>
-      <td class="text-xs-right">{{ profile.username }}</td>
-      <td class="text-xs-right">{{ profile.full_name }}</td>
-      <td class="text-xs-right">{{ profile.phone_number }}</td>
-      <td class="text-xs-right">{{ profile.present_total }}</td>
-      <td class="text-xs-right">{{ profile.absent_total }}</td>            
+    <template slot="user">
+      <td class="text-xs-right">{{ user.id }}</td>
+      <td class="text-xs-right">{{ user.username }}</td>
+      <td class="text-xs-right">{{ user.full_name }}</td>
+      <td class="text-xs-right">{{ user.phone_number }}</td>
+      <td class="text-xs-right">{{ user.present_total }}</td>
+      <td class="text-xs-right">{{ user.absent_total }}</td>            
     </template>
   </v-data-table> -->
 
@@ -51,13 +51,13 @@ import axios from "axios";
 export default {
   asyncData({ req, params }) {
     // We can return a Promise instead of calling the callback
-    return axios.get("http://localhost:8000/api/profiles/all/").then(res => {
-      return { profiles: res.data };
+    return axios.get("http://localhost:8000/api/users/all/").then(res => {
+      return { users: res.data };
     });
   },
   data() {
     return {
-      profiles: "",
+      users: "",
       name: "",
       phone_number: "",
       present_total: "",

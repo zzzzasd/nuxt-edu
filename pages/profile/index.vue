@@ -3,7 +3,11 @@
 <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
       <h1>Profile Page</h1>
-        <h1> {{ user }} </h1>
+        <h1> {{user.user.full_name }} </h1>
+        <h1> {{user.user.phone_number }} </h1>
+        <h1> {{user.user.present_total }} </h1>
+        <h1> {{user.user.absent_total}} </h1>
+        
 <h1><nuxt-link to="/">Back to home page</nuxt-link></h1>
 
 </v-flex>

@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Class {{classroom.name}}</h1>
         <div v-for="(student, index) in classroom.students" :key="index">
-          <input type="checkbox" v-model="selected" :value="student.id"  />
+          <input type="checkbox" v-model="selected" :value="student.username"  />
           <label>{{ student.full_name }} </label>
         </div>
       <p> {{ selected }} </p>
@@ -67,7 +67,7 @@ export default {
             params:{
               api_key:'ae978186',
               api_secret:'G9zzAXCV5YLh2ylV',
-              to:60122238785,
+              to:60102322695,
               from:'NEXMO',
               text:"Your child is absent"
             },
